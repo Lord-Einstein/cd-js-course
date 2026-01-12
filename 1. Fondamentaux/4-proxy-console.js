@@ -11,16 +11,34 @@
 // Exemple de retour : "[14:35:22]"
 
 function obtenirHorodatage() {
-  // Votre code ici
+  const now = new Date();
+
+  const formatage = now.toLocaleTimeString('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  return (`[${formatage}]`);
 }
 
 // ===================================
 // PARTIE 2 : CRÉATION DU PROXY CONSOLE
 // ===================================
 
+const lastConsoleLog = console.log;
+const lastConsoleWarn = console.warn;
+const lastConsoleError = console.error;
+
+console.log = (message) => lastConsoleLog(`${obtenirHorodatage()} ${message}`);
+console.warn = (message) => lastConsoleWarn(`${obtenirHorodatage()} ${message}`);
+console.error = (message) => lastConsoleError(`${obtenirHorodatage()} ${message}`);
+
 // ===================================
 // PARTIE 3 : MISE EN PLACE DU PROXY
 // ===================================
+
 
 // ===================================
 // TESTS
