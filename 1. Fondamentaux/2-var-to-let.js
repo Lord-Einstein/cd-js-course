@@ -3,18 +3,18 @@
 // Remplacez les var dans le code suivant par des let ou des const au besoin.
 
 function add(a, b) {
-  var result = a + b;
-  return result;
+  const sum = a + b;
+  return sum;
 }
 
 function substract(a, b) {
+  let result = 0;
   if (a < b) {
-    result = 0;
+    return result;
   } else {
-    var result = a - b;
+    result = a - b;
+    return result;
   }
-
-  return result;
 }
 
 function main(number1, number2) {
@@ -25,4 +25,4 @@ function main(number1, number2) {
   );
 }
 
-main(parseInt(process.argv[2] || "0", 10), parseInt(process.argv[3] || "0"));
+main(parseInt(process.argv[2] || "0", 10), parseInt(process.argv[3] || "0", 10));
