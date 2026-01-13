@@ -18,7 +18,11 @@
 // Cette fonction ne modifie pas le tableau directement
 
 function echanger(tableau, index1, index2) {
-  // Votre code ici
+  const copy = [...tableau];
+  copy[index1] = tableau[index2];
+  copy[index2] = tableau[index1];
+
+  return copy;
 }
 
 // ===================================
@@ -29,8 +33,34 @@ function echanger(tableau, index1, index2) {
 // Paramètres : tableau (array de numbers)
 // Return : le tableau trié
 
+
 function triABulle(tableau) {
+
+  const length = tableau.length;
+  let tab = tableau;
+
   // Votre code ici
+  for (let i = 0; i < (lenght - 1) ; i++) {
+    for(let j = i+1; j < (lenght); j++) {
+      if(tableau[i] > tableau[j]) {
+        echanger(tableau, tableau[i], tableau[j]);
+      }
+    }
+  }
+  return tableau;
+
+
+  
+
+  for (let i = 0; i < length - 1; ++i) {
+    for (let j = 0; j < length - i - 1; ++j) {
+      if (tab[j] > tab[j + 1]) {
+        tab = echanger(tab, j, j + 1);
+      }
+    }
+  }
+
+  return tab;
 }
 
 // ===================================
@@ -51,6 +81,7 @@ function triABulleOptimise(tableau) {
 console.log("=== TESTS DU TRI À BULLE ===\n");
 
 // Test 1 : Tableau désorganisé
+const tabe = 2;
 const tableau1 = [64, 34, 25, 12, 22, 11, 90];
 console.log("Tableau original :", tableau1);
 console.log("Tableau trié :", triABulle([...tableau1])); // [...tableau1] crée une copie
