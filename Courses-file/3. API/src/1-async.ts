@@ -32,6 +32,12 @@ function lireFichierCallback(chemin: string): void {
   console.log("Début de la lecture (callback)...");
 
   // TODO : Utiliser fs.readFile(chemin, 'utf8', (err, data) => {...})
+  fs.readFile(chemin, 'utf8', (err, data) => {
+    if(err){
+      console.error("Erreur de lecture", err);
+      return;
+    }
+  })
 }
 
 // ===================================
@@ -49,6 +55,9 @@ function lireFichierPromise(chemin: string): void {
 
   // TODO : Utiliser fsPromises.readFile(chemin, 'utf8')
   // puis .then() et .catch()
+  // fsPromises.readFile(chemin, 'utf8').then((value) => {
+  //   console.log(value);
+  // })
 }
 
 // ===================================
@@ -155,7 +164,7 @@ console.log("=== TESTS DE LECTURE DE FICHIERS ===\n");
 // Test 1 : Lecture avec callback
 console.log("--- Test 1 : Callback ---");
 // TODO : Décommenter après avoir complété la fonction
-// lireFichierCallback('./exemple.txt');
+lireFichierCallback('../example.txt');
 
 // Attendre un peu avant le test suivant (pour voir l'ordre d'exécution)
 setTimeout(() => {

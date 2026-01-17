@@ -7,6 +7,11 @@ interface Message {
   content: string;
 }
 
+enum Animal {
+  Cat,
+  Dog
+}
+
 function main() {
   const message: Message = {
     content: "hello world from TS!",

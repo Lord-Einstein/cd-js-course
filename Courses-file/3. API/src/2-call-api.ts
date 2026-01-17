@@ -2,6 +2,8 @@
 // APPELS D'API - POKÉAPI
 // ===================================
 
+import { types } from "node:util";
+
 // CONTEXTE :
 // La PokéAPI (https://pokeapi.co/) est une API REST gratuite qui fournit
 // des informations sur les Pokémon. Dans cet exercice, vous allez apprendre
@@ -17,11 +19,17 @@
 // TODO : Définir une interface pour un Pokémon simplifié
 interface Pokemon {
   // Votre code ici
+  id: number;
+  name: string;
+  types: PokemonType[];
 }
 
 // TODO : Définir une interface pour les types d'un Pokémon
 interface PokemonType {
   // Votre code ici
+  type: {
+    name: string;
+  }
 }
 
 // TODO : Définir une interface pour les statistiques d'un Pokémon
@@ -39,8 +47,19 @@ interface PokemonStat {
 // - Retourne les informations du Pokémon
 // - Gère les erreurs (Pokémon inexistant, erreur réseau, etc.)
 
-async function recupererPokemon(nom: string): Promise<Pokemon | null> {
+async function recupererPokemon(nom: string): Promise<Pokemon|null> {
   // TODO : Utiliser fetch() pour faire la requête
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nom.toLowerCase()}`);
+
+  if(!response.ok) {
+    console.error('');
+    return null;
+  }
+
+  const data = await response.json() as Pokemon;
+  return data;
+
+  
   // URL : `https://pokeapi.co/api/v2/pokemon/${nom.toLowerCase()}`
 }
 
@@ -56,7 +75,14 @@ async function recupererPokemon(nom: string): Promise<Pokemon | null> {
 // - Ses statistiques principales
 
 async function afficherPokemon(nom: string): Promise<void> {
-  // TODO : Appeler recupererPokemon et afficher les infos
+  const pokemon = await recupererPokemon(nom);
+  
+  if(!pokemon){
+    return;
+  }
+
+  console.log(pokemon.id);
+  console.log(pokemon.name);
 }
 
 // ===================================
@@ -68,8 +94,9 @@ async function afficherPokemon(nom: string): Promise<void> {
 // - Utilise Promise.all() pour les récupérer en parallèle
 // - Retourne un tableau de Pokémon
 
-async function recupererPlusieursPokemon(noms: string[]): Promise<Pokemon[]> {
+async function recupererPlusieursPokemon(noms: string[]): Promise<Pokemon[] | void> {
   // TODO : Utiliser Promise.all() avec map()
+  
 }
 
 // ===================================
@@ -139,7 +166,7 @@ console.log("=== TESTS POKEAPI ===\n");
 async function test1() {
   console.log("--- Test 1 : Récupérer Pikachu ---");
   // TODO : Décommenter après avoir complété la fonction
-  // await afficherPokemon("pikachu");
+  await afficherPokemon("pikachu");
   console.log();
 }
 
@@ -220,4 +247,4 @@ async function executerTests() {
 }
 
 // Décommenter pour exécuter les tests
-// executerTests().catch(console.error);
+executerTests().catch(console.error);

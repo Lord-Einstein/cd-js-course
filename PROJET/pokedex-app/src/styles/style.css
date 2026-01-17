@@ -1,0 +1,185 @@
+/* src/styles/style.css */
+
+/* --- 1. VARIABLES (THEME DARK) --- */
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Palette Dark Mode */
+  --bg-app: #121212;          /* Fond très sombre (presque noir) */
+  --bg-card: #1e1e1e;         /* Fond des cartes (gris anthracite) */
+  --text-main: #e0e0e0;       /* Blanc cassé pour le texte */
+  --text-muted: #a0a0a0;      /* Gris clair pour les infos secondaires */
+  --primary: #bb86fc;         /* Violet clair (typique dark mode) */
+  --primary-hover: #9965f4;
+  
+  /* Skeletons Dark */
+  --skeleton-base: #2a2a2a;
+  --skeleton-shine: #3a3a3a;
+}
+
+/* --- 2. RESET & LAYOUT --- */
+*, *::before, *::after {
+  box-sizing: border-box; /* EMPÊCHE LES DÉBORDEMENTS */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  width: 100%;           /* Au lieu de min-width: 100vw */
+  overflow-x: hidden; /* Sécurité anti-débordement horizontal */
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem; /* Padding réduit sur les côtés */
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  background: -webkit-linear-gradient(45deg, #bb86fc, #03dac6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- 3. PAGINATION DARK --- */
+.pagination-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 1px solid #333;
+}
+
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50%; /* Boutons ronds, plus modernes */
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--primary);
+  transform: scale(1.1);
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-input {
+  background: #121212;
+  color: white;
+  border: 1px solid #444;
+  padding: 5px;
+  border-radius: 5px;
+  width: 50px;
+  text-align: center;
+}
+
+/* --- 4. SKELETON (Rectangles + Dark Shimmer) --- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-card {
+  /* Taille réduite pour matcher les nouvelles cartes */
+  width: 160px; 
+  height: 220px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg, 
+    var(--skeleton-base) 25%, 
+    var(--skeleton-shine) 50%, 
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  
+  /* Plus de rond au milieu, juste un bloc rectangulaire suggéré */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Un petit rectangle interne pour simuler l'image */
+.skeleton-card::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 100px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+/* --- 5. NETTOYAGE DES INPUTS (Enlever les flèches moche) --- */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* --- 6. LAYOUT (Grid et structure) --- */
+
+/* Le conteneur principal de l'app */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* La grille où s'affichent les cartes */
+.cards-grid {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center; 
+    width: 100%;
+    min-height: 500px;
+    padding-bottom: 40px;
+}
+
+/* Le titre */
+.app-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(to right, #ffffff, #888888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
